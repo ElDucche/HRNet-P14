@@ -85,25 +85,19 @@ export default function EmployeeList() {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(), //client-side sorting
     onSortingChange: setSorting, //optionally control sorting state in your own scope for easy access
-    // sortingFns: {
-    //   sortStatusFn, //or provide our custom sorting function globally for all columns to be able to use
-    // },
+   
     //no need to pass pageCount or rowCount with client-side pagination as it is calculated automatically
     state: {
       sorting,
     },
-    // autoResetPageIndex: false, // turn off page index reset when sorting or filtering - default on/true
-    // enableMultiSort: false, //Don't allow shift key to sort multiple columns - default on/true
-    // enableSorting: false, // - default on/true
-    // enableSortingRemoval: false, //Don't allow - default on/true
-    // isMultiSortEvent: (e) => true, //Make all clicks multi-sort - default requires `shift` key
-    // maxMultiSortColCount: 3, // only allow 3 columns to be sorted at once - default is Infinity
   })
-  
 
   return (
-    <div className="p-2">
-      <div className="h-2" />
+    <div className="font-sans grid gap-4">
+      <h1 className="text-4xl font-black mb-4 text-center">Employee list</h1>
+      <div className="w-fit mx-auto">
+        <Link to="/" className="p-4 border bg-slate-50 rounded-lg my-4 hover:bg-slate-200/50 transition-all">Back to Home</Link>
+      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map(headerGroup => (
@@ -134,8 +128,8 @@ export default function EmployeeList() {
                           header.getContext()
                         )}
                         {{
-                          asc: ' 🔼',
-                          desc: ' 🔽',
+                          asc: ' ↑',
+                          desc: ' ↓',
                         }[header.column.getIsSorted() as string] ?? null}
                       </div>
                     )}
@@ -169,10 +163,4 @@ export default function EmployeeList() {
       </Table>
     </div>
   )
-// interface ReduxState {
-//   employees: {
-//     employees: Employee[]
-//   }
-// }
-
 }
