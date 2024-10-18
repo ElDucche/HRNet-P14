@@ -75,4 +75,7 @@
   .employeeForm>label>select {
     @apply w-full p-2 border border-border bg-slate-100 rounded-md;
   }
+  .pagination-button {
+    @apply py-1 px-2 border border-border rounded-lg cursor-pointer hover:bg-slate-100 active:bg-slate-200 transition-all;
+  }
 }

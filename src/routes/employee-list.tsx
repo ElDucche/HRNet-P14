@@ -9,16 +9,22 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
+  PaginationState,
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/Tableau";
 
 export default function EmployeeList() {
   const employees = useSelector((state: {employees: Employee[]}) => state.employees)
   const [sorting, setSorting] = useState<SortingState>([])
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  })
 
   const columns = useMemo<ColumnDef<Employee>[]>(
     () => [
@@ -79,17 +85,24 @@ export default function EmployeeList() {
     []
   )
 
+  const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>(employees)
+  const filterEmployees = (search: string) => {
+    setFilteredEmployees(employees.filter(employee => employee.firstName.toLowerCase().includes(search.toLowerCase()) || employee.lastName.toLowerCase().includes(search.toLowerCase()) || employee.dateOfBirth.toLowerCase().includes(search.toLowerCase()) || employee.startDate.toLowerCase().includes(search.toLowerCase()) || employee.street.toLowerCase().includes(search.toLowerCase()) || employee.city.toLowerCase().includes(search.toLowerCase()) || employee.state.toLowerCase().includes(search.toLowerCase()) || employee.zipCode.toLowerCase().includes(search.toLowerCase()) || employee.department.toLowerCase().includes(search.toLowerCase())))
+  }
+
   const table = useReactTable<Employee>({
     columns,
-    data: employees,
+    data: filteredEmployees,
     debugTable: true,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(), //client-side sorting
     onSortingChange: setSorting, //optionally control sorting state in your own scope for easy access
-   
-    //no need to pass pageCount or rowCount with client-side pagination as it is calculated automatically
+    paginateExpandedRows: true,
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
     state: {
       sorting,
+      pagination,
     },
   })
 
@@ -99,6 +112,9 @@ export default function EmployeeList() {
       <div className="w-fit mx-auto">
         <Link to="/" className="p-4 border bg-slate-50 rounded-lg my-4 hover:bg-slate-200/50 transition-all">Back to Home</Link>
       </div>
+        <div className="w-full flex items-center">
+          <input type="text" className="self-end p-2 border rounded-lg placeholder:font-light outline-slate-700" placeholder=" 🔎 Rechercher" onChange={(e) => filterEmployees(e.target.value)}/>
+        </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map(headerGroup => (
@@ -162,6 +178,69 @@ export default function EmployeeList() {
             })}
         </TableBody>
       </Table>
+      <div className="flex items-center gap-2">
+        <button
+          className="pagination-button"
+          onClick={() => table.firstPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          {'<<'}
+        </button>
+        <button
+          className="pagination-button"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          {'<'}
+        </button>
+        <button
+          className="pagination-button"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          {'>'}
+        </button>
+        <button
+          className="pagination-button"
+          onClick={() => table.lastPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          {'>>'}
+        </button>
+        <span className="flex items-center gap-1">
+          <div>Page</div>
+          <strong>
+            {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getPageCount().toLocaleString()}
+          </strong>
+        </span>
+        <span className="flex items-center gap-1">
+          | Go to page:
+          <input
+            type="number"
+            min="1"
+            max={table.getPageCount()}
+            defaultValue={table.getState().pagination.pageIndex + 1}
+            onChange={e => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0
+              table.setPageIndex(page)
+            }}
+            className="border p-1 rounded-lg w-16"
+          />
+        </span>
+        <select
+          value={table.getState().pagination.pageSize}
+          onChange={e => {
+            table.setPageSize(Number(e.target.value))
+          }}
+        >
+          {[10, 20, 30, 40, 50].map(pageSize => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   )
 }
