@@ -24,6 +24,7 @@ export default function EmployeeList() {
     () => [
       {
         accessorKey: 'firstName',
+        header: 'First Name',
         cell: info => info.getValue(),
         //this column will sort in ascending order by default since it is a string column
       },
@@ -31,19 +32,19 @@ export default function EmployeeList() {
         accessorFn: row => row.lastName,
         id: 'lastName',
         cell: info => info.getValue(),
-        header: () => <span>Last Name</span>,
+        header: 'Last Name',
         sortUndefined: 'last', //force undefined values to the end
         sortDescFirst: false, //first sort order will be ascending (nullable values can mess up auto detection of sort order)
       },
       {
         accessorKey: 'dateOfBirth',
-        header: () => 'Date of Birth',
+        header: 'Date of Birth',
         sortUndefined: 'last', //force undefined values to the end
         sortDescFirst: false,
       },
       {
         accessorKey: 'startDate',
-        header: () =>  'Start Date',
+        header:  'Start Date',
         sortUndefined: 'last', //force undefined values to the end
       },
       {
