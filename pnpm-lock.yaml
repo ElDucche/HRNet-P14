@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@elducchedev/react-modal':
-        specifier: ^1.0.3
-        version: 1.0.3
+        specifier: ^1.0.4
+        version: 1.0.4
       '@reduxjs/toolkit':
         specifier: ^2.2.7
         version: 2.2.7(react-redux@9.1.2(@types/react@18.3.11)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
@@ -179,8 +179,8 @@ packages:
     resolution: {integrity: sha512-vwIVdXG+j+FOpkwqHRcBgHLYNL7XMkufrlaFvL9o6Ai9sJn9+PdyIL5qa0XzTZw084c+u9LOls53eoZWP/W5WQ==}
     engines: {node: '>=6.9.0'}
 
-  '@elducchedev/react-modal@1.0.3':
-    resolution: {integrity: sha512-d4k6yTC8GfyWLUhoKDlaNKxeuN21SkWB/thGFvdSm8bC7QXxlJf7SwVdqFGXFkRpxYSwEKoL6TbYCiFbkXWeag==}
+  '@elducchedev/react-modal@1.0.4':
+    resolution: {integrity: sha512-H4BvkYELKZ+kp4o6W5JCYPnKgU07xiL3TCcB48L/swKLLmnj0QC9f/vTgq/TSpyXg0PstZp/FiY26iQt+HvLkQ==}
 
   '@esbuild/android-arm64@0.18.20':
     resolution: {integrity: sha512-Nz4rJcchGDtENV0eMKUNa6L12zz2zBDXuhj/Vjh18zGqB44Bi7MBMSXjgunJgjRhCmKOjnPuZp4Mb6OKqtMHLQ==}
@@ -1563,7 +1563,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.25.7
       to-fast-properties: 2.0.0
 
-  '@elducchedev/react-modal@1.0.3':
+  '@elducchedev/react-modal@1.0.4':
     dependencies:
       clsx: 2.1.1
       react: 18.3.1

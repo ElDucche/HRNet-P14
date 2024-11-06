@@ -74,15 +74,17 @@ export default function Index() {
           </label>
           <label>
             Last name
-            <input type="text" name="lastName" required />
+            <input type="text" name="lastName" required  />
           </label>
           <label>
             Date of Birth
-            <input type="date" name="dateOfBirth" required />
+            <input type="date" name="dateOfBirth" required min="1900-01-01" max={new Date().toISOString().split('T')[0]} />
           </label>
           <label>
             Start Date
-            <input type="date" name="startDate" required />
+            <input type="date" name="startDate" required 
+              min="1900-01-01"
+            />
           </label>
           <div className="border-2 border-black p-4 grid gap-4 relative employeeForm">
             <h4 className="p-1 bg-white -top-5 left-2 absolute text-xl">
@@ -105,7 +107,7 @@ export default function Index() {
             />
             <label>
               Zip Code
-              <input type="text" name="zipCode" required />
+              <input type="number" name="zipCode" required />
             </label>
           </div>
           <Dropdown
