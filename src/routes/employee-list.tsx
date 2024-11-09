@@ -15,7 +15,7 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/Tableau";
 
 export default function EmployeeList() {
@@ -225,6 +225,7 @@ export default function EmployeeList() {
               const page = e.target.value ? Number(e.target.value) - 1 : 0
               table.setPageIndex(page)
             }}
+            aria-label="Go to page"
             className="border p-1 rounded-lg w-16"
           />
         </span>
@@ -233,6 +234,7 @@ export default function EmployeeList() {
           onChange={e => {
             table.setPageSize(Number(e.target.value))
           }}
+          aria-label="Select page size"
         >
           {[10, 20, 30, 40, 50].map(pageSize => (
             <option key={pageSize} value={pageSize}>
